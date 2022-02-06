@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Projects page</title>
+  </head>
+  <body>
+    <h1>Projects:</h1>
+    <table border="2">
+      <thead>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Tasks</th>
+      </thead>
+      {% for project in project_list%}
+      <tr>
+        <td>{{projects.id}}</td>
+        <td>{{projects.title}}</td>
+        <td>{{projects.tasks}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+    <br/><br/><br/>
+  </body>
+  </html>
