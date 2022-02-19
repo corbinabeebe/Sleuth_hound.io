@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+    db:
+        image: postgres
+        container_name: db
+        environment:
+            - POSTGRES_DB=sleuthdb
+            - POSTRES_USER=corbinb
+            - POSTGRES_PASSWORD=buster
+            - POSTGRES_HOST_AUTH_METHOD=trust
+        volumes:
+            - pgdata:/var/lib/postgres/data
+    web:
+        container_name: sleuth_hound
+        build: .
+        restart: always
+        command: >
+            bash -c "python manage.py makemigrations
+            && python manage.py migrate
+            && python manage.py runserver 0.0.0.0:8000"
+        volumes:
+            - .:/code
+        ports:
+            - "10555:8000"
+        depends_on:
+            - db
+volumes:
+    pgdata:
+
+
