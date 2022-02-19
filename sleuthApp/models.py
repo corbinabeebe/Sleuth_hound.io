@@ -1,7 +1,11 @@
+from statistics import mode
 from django.db import models
 
 # Create your models here.
 class User(models.Model):
+    """
+        User model class that maps objects to users in the user table
+    """
     user_id = models.BigAutoField(primary_key=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
@@ -9,6 +13,9 @@ class User(models.Model):
     email = models.CharField(max_length=50)
 
 class Tasks(models.Model):
+    """
+        Tasks model class that maps objects to tasks
+    """
     TASK_STATUS = (
         ('N', 'New'),
         ('I','In_Progress'),
@@ -19,6 +26,7 @@ class Tasks(models.Model):
         ('L', 'Low'),
     )
     tasks_id = models.BigAutoField(primary_key=True)
+    project_id = models.ForeignKey('Project', on_delete=models.CASCADE)
     task_subject = models.CharField(max_length=30)
     details = models.TextField(max_length=500)
     open_date = models.DateTimeField()
@@ -27,11 +35,17 @@ class Tasks(models.Model):
     severity = models.CharField(max_length=1, choices=SEVERITY)
 
 class Project(models.Model):
+    """
+        Project model class that maps objects to projects
+    """
     project_id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.TextField()
     completion = models.IntegerField()
 
 class Comment(models.Model):
+    """
+        Comment model class that maps objects to comments in the db
+    """
     comment_id = models.BigAutoField(primary_key=True)
     body = models.TextField()
