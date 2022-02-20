@@ -1,4 +1,6 @@
-from statistics import mode
+"""
+    Contains data models for sleuth_hound.io application
+"""
 from django.db import models
 
 # Create your models here.
@@ -26,7 +28,7 @@ class Tasks(models.Model):
         ('L', 'Low'),
     )
     tasks_id = models.BigAutoField(primary_key=True)
-    project_id = models.ForeignKey('Project', on_delete=models.CASCADE)
+    project_id = models.ForeignKey('Project', default=None, on_delete=models.CASCADE)
     task_subject = models.CharField(max_length=30)
     details = models.TextField(max_length=500)
     open_date = models.DateTimeField()
