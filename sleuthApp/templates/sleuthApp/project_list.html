@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Projects page</title>
-  </head>
-  <body>
+{% extends "base.html" %}
+{% block body_block %}
     <h1>Projects:</h1>
     <table border="2">
       <thead>
@@ -22,5 +17,4 @@
       {%endfor%}
     </table>
     <br/><br/><br/>
-  </body>
-  </html>
+{% endblock %}

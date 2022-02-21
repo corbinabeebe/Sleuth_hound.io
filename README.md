@@ -30,7 +30,7 @@ A few features that we would like to implement in the future can be found below:
 Start the install process by cloning the Sleuth-hound.io repository to your machine.
 
 Sleuth-hound.io has a few dependencies and requirements to ensure the project is able to run locally.
-Before we dive into getting those dependencies involved, we need to ensure docker is isntalled locally.  Docker can be installed by following the instructions available here: [Get Docker](<https://docs.docker.com/get-docker/>)
+We can start by installing docker if it is not already installed.  Docker can be installed by following the instructions available here: [Get Docker](<https://docs.docker.com/get-docker/>)
 
 Once docker is installed, We are ready to instruct the system to setup our project via the docker-compose and dockerfile.
 

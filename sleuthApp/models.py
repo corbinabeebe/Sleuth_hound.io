@@ -13,10 +13,11 @@ class User(models.Model):
     last_name = models.CharField(max_length=20)
     username = models.CharField(max_length=20)
     email = models.CharField(max_length=50)
+    password = models.CharField(max_length=25, default=None)
 
-class Tasks(models.Model):
+class Task(models.Model):
     """
-        Tasks model class that maps objects to tasks
+        Task model class that maps objects to task
     """
     TASK_STATUS = (
         ('N', 'New'),
@@ -27,14 +28,16 @@ class Tasks(models.Model):
         ('H', 'High'),
         ('L', 'Low'),
     )
-    tasks_id = models.BigAutoField(primary_key=True)
+    task_id = models.BigAutoField(primary_key=True)
     project_id = models.ForeignKey('Project', default=None, on_delete=models.CASCADE)
     task_subject = models.CharField(max_length=30)
     details = models.TextField(max_length=500)
     open_date = models.DateTimeField()
     close_date = models.DateTimeField(blank=True)
-    tasks_status = models.CharField(max_length=1, choices=TASK_STATUS)
+    task_status = models.CharField(max_length=1, choices=TASK_STATUS)
     severity = models.CharField(max_length=1, choices=SEVERITY)
+    assigned_user = models.ForeignKey(
+        'User', default=None, on_delete=models.CASCADE)
 
 class Project(models.Model):
     """
@@ -43,11 +46,12 @@ class Project(models.Model):
     project_id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=50)
     description = models.TextField()
-    completion = models.IntegerField()
 
 class Comment(models.Model):
     """
         Comment model class that maps objects to comments in the db
     """
     comment_id = models.BigAutoField(primary_key=True)
+    task_id = models.ForeignKey(
+        'Task', default=None, on_delete=models.CASCADE)
     body = models.TextField()
