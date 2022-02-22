@@ -1,0 +1,26 @@
+{% extends "sleuthApp/base.html" %} 
+
+
+
+{% block content %}
+
+<div class='container myform'>
+    <div class = 'row'>
+        <h1>User Registration Form</h1>
+    </div>
+
+    <div class='row'>
+        <form method="post">
+            {% csrf_token %}
+        
+            {%for field in form %}
+                <div class='mb-3'>
+                    {{field.label_tag}} {{field}}
+                </div>
+            {% endfor %}
+            <input type="submit">
+        </form>
+    </div>
+</div>
+
+{% endblock content%}

@@ -1,0 +1,17 @@
+{% extends "sleuthApp/base.html" %} 
+
+
+{% block content %}
+
+<form action="/login/" method="post">
+    {% csrf_token %}
+
+    {{ form }}
+
+    <input type="submit">
+
+</form>
+
+<button> </button>
+
+{% endblock content%}

@@ -2,6 +2,7 @@
     Contains data models for sleuth_hound.io application
 """
 from django.db import models
+from django.forms import PasswordInput
 
 # Create your models here.
 class User(models.Model):
@@ -12,7 +13,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     username = models.CharField(max_length=20)
-    email = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
     password = models.CharField(max_length=25, default=None)
 
 class Task(models.Model):
