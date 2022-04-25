@@ -1,4 +1,6 @@
-{% extends "base.html" %}
+{% extends "sleuthApp/base.html" %}
+
+
 {% block body_block %}
     <h1>Projects:</h1>
     <table border="2">
@@ -8,7 +10,7 @@
         <th>Description</th>
         <th>Tasks</th>
       </thead>
-      {% for project in project_list%}
+      {% for project in project_list %}
       <tr>
         <td>{{projects.id}}</td>
         <td>{{projects.title}}</td>

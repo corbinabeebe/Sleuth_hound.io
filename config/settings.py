@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sleuthApp',
+    'sleuthApp.apps.SleuthappConfig',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': 'db',
+        #'HOST': 'db',
         'NAME': 'sleuthdb',
         'USER': 'corbinb',
         'PASSWORD': 'buster'
@@ -123,7 +123,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 #-----------------------------------------------------------------\
-STATIC_ROOT = '/Sleuth_hound.io/sleuthApp/static'
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = [
+    BASE_DIR / 'static/sleuthApp',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

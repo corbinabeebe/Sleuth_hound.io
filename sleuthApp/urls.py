@@ -1,11 +1,11 @@
-from atexit import register
 from django.urls import path
-from . import views
+from .views import (HomeView, LoginFormView, ProjectListView, UserCreateView)
 
-app_name = 'sleuth'
+app_name = 'sleuthApp'
 
 urlpatterns = [
-    path('user_login/', views.user_login, name= 'login'),
-    path('', views.home, name='home'),
-    path('register/', views.register, name='register'),
+    path('user_login/', LoginFormView.as_view(), name= 'login'),
+    path('', HomeView.as_view(), name='home'),
+    path('register/', UserCreateView.as_view(), name='register'),
+    path('projects/', ProjectListView.as_view(), name='projects'),
 ]

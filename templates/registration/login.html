@@ -1,17 +1,28 @@
 {% extends "sleuthApp/base.html" %} 
 
-
 {% block content %}
 
-<form action="/login/" method="post">
-    {% csrf_token %}
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <form method="POST">
+                {% csrf_token %}
 
-    {{ form }}
+                {{ form.as_p }}
 
-    <input type="submit">
+                <input class="btn btn-primary" type="submit" value="Submit">
 
-</form>
-
-<button> </button>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
 
 {% endblock content%}

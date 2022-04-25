@@ -17,10 +17,9 @@ from django.contrib import admin
 
 from django.urls import path, include
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls'), name='login'),
-    path('sleuth/', include('sleuthApp.urls'))
-    #path('users/', UserListView.as_view(), name='users'),
-    #path('projects/', ProjectListView.as_view(), name ='projects'),
+    path('sleuth/', include('sleuthApp.urls')),
 ]
