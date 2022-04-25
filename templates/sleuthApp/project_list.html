@@ -1,22 +1,32 @@
 {% extends "sleuthApp/base.html" %}
 
 
-{% block body_block %}
-    <h1>Projects:</h1>
-    <table border="2">
-      <thead>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Tasks</th>
-      </thead>
-      {% for project in project_list %}
-      <tr>
-        <td>{{projects.id}}</td>
-        <td>{{projects.title}}</td>
-        <td>{{projects.tasks}}</td>
-      </tr>
-      {%endfor%}
-    </table>
-    <br/><br/><br/>
-{% endblock %}
+{% block content %}
+<div class="container">
+  <br>
+  <br>
+  <div class="row">
+    <div class="col"><h1>List of Projects</h1></div>
+    <div class="col"></div>
+    <div class="col"></div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    {% for project in object_list %}
+      <div class="card" style="width: 18rem; margin: .5rem;">
+        <span class="border border-dark"></span>
+          <div class="card-body">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-text">{{project.description }}</p>
+            <a href="/sleuth/project_detail/{{ project.id }}" class="card-link">Tasks</a>
+            <a href="/sleuth/update_project/{{ project.id }}" class="card-link">Update Details</a>
+            
+          </div>
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

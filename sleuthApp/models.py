@@ -9,7 +9,7 @@ class User(models.Model):
     """
         User model class that maps objects to users in the user table
     """
-    user_id = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     username = models.CharField(max_length=20)
@@ -29,8 +29,8 @@ class Task(models.Model):
         ('H', 'High'),
         ('L', 'Low'),
     )
-    task_id = models.BigAutoField(primary_key=True)
-    project_id = models.ForeignKey('Project', default=None, on_delete=models.CASCADE)
+    id = models.BigAutoField(primary_key=True)
+    comment_id = models.ForeignKey('Comment', default=None, on_delete=models.CASCADE)
     task_subject = models.CharField(max_length=30)
     details = models.TextField(max_length=500)
     open_date = models.DateTimeField()
@@ -44,7 +44,8 @@ class Project(models.Model):
     """
         Project model class that maps objects to projects
     """
-    project_id = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(primary_key=True)
+    task_id = models.ForeignKey('Task', default=None, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.TextField()
 
@@ -52,7 +53,5 @@ class Comment(models.Model):
     """
         Comment model class that maps objects to comments in the db
     """
-    comment_id = models.BigAutoField(primary_key=True)
-    task_id = models.ForeignKey(
-        'Task', default=None, on_delete=models.CASCADE)
+    id = models.BigAutoField(primary_key=True)
     body = models.TextField()
