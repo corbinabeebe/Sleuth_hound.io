@@ -35,7 +35,7 @@ We can start by installing docker if it is not already installed.  Docker can be
 Once docker is installed, We are ready to instruct the system to setup our project via the docker-compose and dockerfile.
 
 - Navigate to the locally direcotry where Sleuth-hound.io is installed
-- Run **docker compose up**
+- Run **docker compose up** or if you need to re-build the project an instantiate changes run **docker compuse up --build**
 - To check if the project is running, navigate to the app home page by checking [localhost:10555](<http://localhost:10555/>)
 - **PROFIT!!!!**
 
