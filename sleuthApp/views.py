@@ -1,9 +1,11 @@
 """views.py used for managing views within the django app"""
 
-from dataclasses import fields
+from concurrent.futures.process import _threads_wakeups
+import django
+from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, FormView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
-from .models import Project, User
+from .models import Project, User, Task
 from .forms import LoginForm
 
 
@@ -26,6 +28,13 @@ class ProjectListView(ListView):
 class ProjectDetailView(DetailView):
     """View that allows one project to be seen on the screen"""
     model = Project
+
+def project_detail(request):
+    """shows project detail and tasks"""
+    project = Project.objects.all()
+    tasks = Task.objects.all()
+    return render(request, 'project_detail.html',{project=project, tasks=tasks})
+
 
 class ProjectUpdateView(UpdateView):
     """Adds ability to update project information"""

@@ -27,7 +27,9 @@ A few features that we would like to implement in the future can be found below:
 
 ## How To Install Sleuth-hound.io
 
-Start the install process by cloning the Sleuth-hound.io repository to your machine.
+No matter wherer you decide to use Sleuth, we start the install process by cloning the Sleuth-hound.io repository to your machine.
+
+### Running Sleuth via Docker
 
 Sleuth-hound.io has a few dependencies and requirements to ensure the project is able to run locally.
 We can start by installing docker if it is not already installed.  Docker can be installed by following the instructions available here: [Get Docker](<https://docs.docker.com/get-docker/>)
@@ -38,6 +40,73 @@ Once docker is installed, We are ready to instruct the system to setup our proje
 - Run **docker compose up** or if you need to re-build the project an instantiate changes run **docker compuse up --build**
 - To check if the project is running, navigate to the app home page by checking [localhost:10555](<http://localhost:10555/>)
 - **PROFIT!!!!**
+
+## Running Sleuth Locally
+
+When running Python and Django projects locally, it is recommended to use virtual environemnts(which we highly recommend).
+
+### Install Postgres
+
+Need install of postgres locally - [Postgres SQL](<https://www.postgresql.org/>)
+
+It might be helpful to login to postgres with the postgres super user or pgAdmin and create a super user for yourself and the database: sluethdb to be used in steps below
+
+### Install Virtual Environment
+
+Details on installing a virtual environemnt can be found here: [Python Docs: Virtual Environments](<https://docs.python.org/3/tutorial/venv.html/>)
+After installation of virtual environment, activate the environemnt (system specific and can be found in Vitual Env docs listed above)
+With the virtual environemnt activated, in terminal/console, navigate to the project folder:
+
+```
+
+cd path/to/Sleuth-hound.io
+
+```
+
+### Open source code in IDE
+
+Open the code base in your favorite IDE(we use VS code)
+
+### Create a config file named .pg_service.conf
+
+This file will have the following format and information:
+
+```
+
+[my_service]
+host=localhost
+user=your_user_name
+dbname=sleuthdb
+port=5432
+
+```
+
+### Create a pass file named .my_pgpass
+
+```
+
+localhost:5432:sleuthdb:YourUserName:YourPassword
+
+```
+
+### Install requirments and migrations
+
+Then run one command after another:
+
+```
+
+pip install -r requirements.txt
+
+python manage.py makemigrations sleuthApp
+
+python manage.py migrate
+
+python manage.py runserver
+
+
+```
+
+### PROFIT
 
 ## How to use Sleuth-hound.io
 

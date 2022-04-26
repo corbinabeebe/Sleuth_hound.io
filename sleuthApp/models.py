@@ -30,6 +30,8 @@ class Task(models.Model):
         ('L', 'Low'),
     )
     id = models.BigAutoField(primary_key=True)
+    project_id = models.ForeignKey(
+        'Project', default=None, on_delete=models.CASCADE)
     comment_id = models.ForeignKey('Comment', default=None, on_delete=models.CASCADE)
     task_subject = models.CharField(max_length=30)
     details = models.TextField(max_length=500)
@@ -45,7 +47,6 @@ class Project(models.Model):
         Project model class that maps objects to projects
     """
     id = models.BigAutoField(primary_key=True)
-    task_id = models.ForeignKey('Task', default=None, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     description = models.TextField()
 

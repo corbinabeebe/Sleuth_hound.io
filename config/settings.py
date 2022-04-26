@@ -78,6 +78,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+        'OPTIONS': {
+            'service': "./.pg_service.conf",
+            'passfile': './.my_pgpass'
+        },
         #'HOST': 'db',
         'NAME': 'sleuthdb',
         'USER': 'corbinb',
