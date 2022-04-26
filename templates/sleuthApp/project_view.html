@@ -1,0 +1,35 @@
+{% extends "sleuthApp/base.html" %}
+
+{% block content %}
+<div class="container">
+
+    {% comment %} need to be able to loop through the items in this context {% endcomment %}
+        
+    <div class="row">
+        <div class="col">
+            <h1>Project Title: {{ project.0.title }}</h1>
+            <h2>Project Description: {{ project.0.description }}</h2>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        {% for key, values in data.items %}
+        <div class="card" style="width: 18rem; margin: .5rem;">
+            <span class="border border-dark"></span>
+            <div class="card-body">
+                <h5 class="card-title">{{ task.details }}</h5>
+                <p class="card-text">{{ task.status }}</p>
+                {% comment %} <a href="/sleuth/project_detail/{{ project.id }}" class="card-link">Tasks</a>
+                <a href="/sleuth/update_project/{{ project.id }}" class="card-link">Update Details</a> {% endcomment %}
+                
+            </div>
+            </span>
+        </div>
+        {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

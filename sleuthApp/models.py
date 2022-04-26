@@ -2,14 +2,14 @@
     Contains data models for sleuth_hound.io application
 """
 from django.db import models
-from django.forms import PasswordInput
 
 # Create your models here.
 class User(models.Model):
     """
         User model class that maps objects to users in the user table
     """
-    id = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(
+        auto_created=True, primary_key=True, serialize=True)
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     username = models.CharField(max_length=20)
@@ -29,7 +29,7 @@ class Task(models.Model):
         ('H', 'High'),
         ('L', 'Low'),
     )
-    id = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(auto_created=True, primary_key=True, serialize=True)
     project_id = models.ForeignKey(
         'Project', default=None, on_delete=models.CASCADE)
     comment_id = models.ForeignKey('Comment', default=None, on_delete=models.CASCADE)
@@ -46,7 +46,8 @@ class Project(models.Model):
     """
         Project model class that maps objects to projects
     """
-    id = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(
+        auto_created=True, primary_key=True, serialize=True)
     title = models.CharField(max_length=50)
     description = models.TextField()
 
@@ -54,5 +55,6 @@ class Comment(models.Model):
     """
         Comment model class that maps objects to comments in the db
     """
-    id = models.BigAutoField(primary_key=True)
+    id = models.BigAutoField(
+        auto_created=True, primary_key=True, serialize=True)
     body = models.TextField()

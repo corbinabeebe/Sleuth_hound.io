@@ -1,11 +1,9 @@
 """views.py used for managing views within the django app"""
 
-from concurrent.futures.process import _threads_wakeups
-import django
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView, FormView, CreateView, DetailView, UpdateView
 from django.urls import reverse_lazy
-from .models import Project, User, Task
+from .models import Project, Task, User, Comment
 from .forms import LoginForm
 
 
@@ -29,11 +27,13 @@ class ProjectDetailView(DetailView):
     """View that allows one project to be seen on the screen"""
     model = Project
 
-def project_detail(request):
+def project_detail_view(request, id):
     """shows project detail and tasks"""
-    project = Project.objects.all()
-    tasks = Task.objects.all()
-    return render(request, 'project_detail.html',{project=project, tasks=tasks})
+    ## need to write code to make context accessible in html
+    project = Project.objects.filter(id=id).all()
+    all_tasks = Task.objects.filter(project_id=id).all()
+    context_list = {'tasks': all_tasks, 'project': project}
+    return render(request, 'sleuthApp/project_view.html', context=context_list)
 
 
 class ProjectUpdateView(UpdateView):
