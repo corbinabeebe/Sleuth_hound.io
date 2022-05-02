@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sleuthApp.apps.SleuthappConfig',
-    'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [

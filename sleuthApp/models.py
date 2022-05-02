@@ -32,14 +32,15 @@ class Task(models.Model):
     id = models.BigAutoField(auto_created=True, primary_key=True, serialize=True)
     project_id = models.ForeignKey(
         'Project', default=None, on_delete=models.CASCADE)
+    comment_id = models.ForeignKey('Comment', default=None, on_delete=models.CASCADE)
     task_subject = models.CharField(max_length=30)
     details = models.TextField(max_length=500)
-    open_date = models.DateTimeField(auto_now_add=True)
-    close_date = models.CharField(max_length= 10, blank=True)
+    open_date = models.DateTimeField()
+    close_date = models.DateTimeField(blank=True)
     task_status = models.CharField(max_length=1, choices=TASK_STATUS)
     severity = models.CharField(max_length=1, choices=SEVERITY)
-    # assigned_user = models.ForeignKey(
-    #     'User', default=None, on_delete=models.CASCADE)
+    assigned_user = models.ForeignKey(
+        'User', default=None, on_delete=models.CASCADE)
 
 class Project(models.Model):
     """
@@ -56,6 +57,4 @@ class Comment(models.Model):
     """
     id = models.BigAutoField(
         auto_created=True, primary_key=True, serialize=True)
-    task_id = models.ForeignKey(
-        'Task', default=None, on_delete=models.CASCADE)
     body = models.TextField()
