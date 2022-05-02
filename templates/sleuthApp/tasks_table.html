@@ -1,0 +1,84 @@
+{% extends "sleuthApp/base.html" %}
+
+{% block content %}
+<table id="projects-table" class="table">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col">#</th>
+      <th class="text-center" scope="col">Title</th>
+      <th class="text-center" scope="col">Description</th>
+      <th class="text-center" scope="col">Type</th>
+      <th class="text-center" scope="col">View / Update</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for project in projects %}
+    <tr>
+      <th class="text-center" scope="row">{{ forloop.counter }}</th>
+      <td class="text-center">{{ project.title }}</td>
+      <td class="text-center">{{ project.description }}</td>
+      <td class="text-center">
+        <!-- Read book buttons -->
+        <button type="button" class="read-book btn btn-sm btn-primary" href="/sleuth/view_project/{{ project.id }}" class="card-link">View Tasks</a>
+          <span class="fa fa-eye"></span>
+        </button>
+        <!-- Update book buttons -->
+        <button type="button" class="update-book btn btn-sm btn-primary" href="/sleuth/update_project/{{ project.id }}" class="card-link">
+          <span class="fa fa-pencil"></span>
+        </button>
+        <!-- Delete book buttons -->
+        {% comment %} <button type="button" class="delete-book btn btn-sm btn-danger" data-form-url="{% url 'delete_book' book.pk %}">
+          <span class="fa fa-trash"></span>
+        </button> {% endcomment %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% comment %} <div class="container">
+  <br>
+  <br>
+  <div class="row">
+    <div class="col"><h1>List of Projects</h1></div>
+    <div class="col"></div>
+    <div class="col">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<!-- Create project button -->
+<button id="create-project" class="btn btn-primary" type="button" name="button">Create Project</button>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+    {% for project in object_list %}
+      <div class="card" style="width: 18rem; margin: .5rem;">
+        <span class="border border-dark"></span>
+          <div class="card-body">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-text">{{project.description }}</p>
+            <a href="/sleuth/project_detail/{{ project.id }}" class="card-link">Tasks</a>
+            <a href="/sleuth/update_project/{{ project.id }}" class="card-link">Update Details</a>
+            
+          </div>
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+</div> {% endcomment %}
+
+{% endblock content %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    $("#create-project").modalForm({
+        formURL: "{% url 'create_project' %}"
+    });
+
+});
+</script>
