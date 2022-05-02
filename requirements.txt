@@ -21,4 +21,5 @@ virtualenv==20.13.1
 wrapt==1.13.3
 beautifulsoup4==4.10.0
 django-bootstrap-v5==1.0.11
+django-bootstrap-modal-forms==2.2.0
 soupsieve==2.3.1
