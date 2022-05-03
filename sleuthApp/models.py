@@ -1,6 +1,9 @@
 """
     Contains data models for sleuth_hound.io application
 """
+from asyncio.windows_events import NULL
+from multiprocessing.sharedctypes import Value
+from django.utils import timezone
 from django.db import models
 
 # Create your models here.
@@ -15,6 +18,13 @@ class User(models.Model):
     username = models.CharField(max_length=20)
     email = models.EmailField(max_length=50)
     password = models.CharField(max_length=25, default=None)
+    # open_date = models.DateTimeField(editable=False)
+
+    # def save(self, *args, **kwargs):
+    #     '''On save, udpate timestamps'''
+    #     if not self.id:
+    #         self.open_date = timezone.now()
+    #     return super(User, self).save(*args, **kwargs)
 
 class Task(models.Model):
     """
@@ -34,12 +44,17 @@ class Task(models.Model):
         'Project', default=None, on_delete=models.CASCADE)
     task_subject = models.CharField(max_length=30)
     details = models.TextField(max_length=500)
-    open_date = models.DateTimeField(auto_now_add=True)
+    # open_date = models.DateTimeField(editable=False)
     # close_date = models.DateTimeField(blank=True)
     task_status = models.CharField(max_length=1, choices=TASK_STATUS)
     severity = models.CharField(max_length=1, choices=SEVERITY)
     # assigned_user = models.ForeignKey(
     #     'User', default=None, on_delete=models.CASCADE)
+    # def save(self, *args, **kwargs):
+    #     '''On save, udpate timestamps'''
+    #     if not self.id:
+    #         self.open_date = timezone.now()
+    #     return super(Task, self).save(*args, **kwargs)
 
 class Project(models.Model):
     """
@@ -49,6 +64,13 @@ class Project(models.Model):
         auto_created=True, primary_key=True, serialize=True)
     title = models.CharField(max_length=50)
     description = models.TextField()
+    # open_date = models.DateTimeField(editable=False)
+
+    # def save(self, *args, **kwargs):
+    #     '''On save, udpate timestamps'''
+    #     if not self.id:
+    #         self.open_date = timezone.now()
+    #     return super(Project, self).save(*args, **kwargs)
 
 class Comment(models.Model):
     """
@@ -57,5 +79,12 @@ class Comment(models.Model):
     id = models.BigAutoField(
         auto_created=True, primary_key=True, serialize=True)
     task_id = models.ForeignKey(
-        'Task', default=None, on_delete=models.CASCADE)
+        'Task', default=NULL, on_delete=models.CASCADE)
+    # open_date = models.DateTimeField(editable=False)
     body = models.TextField()
+
+    # def save(self, *args, **kwargs):
+    #     '''On save, udpate timestamps'''
+    #     if not self.id:
+    #         self.open_date = timezone.now()
+    #     return super(Comment, self).save(*args, **kwargs)

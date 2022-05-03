@@ -1,0 +1,12 @@
+{% extends "sleuthApp/base.html" %}
+
+{% block content %}
+<h1> Create tasks for {{ project.title }}</h1>
+
+    <button hx-get="{% url 'sleuthApp:create_task_form' %}" hx-swap="beforeend" hx-target="#taskforms" class="btn btn-primary">
+        Add task
+    </button>
+
+<div id="taskforms"></div>
+
+{% endblock content %}
