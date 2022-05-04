@@ -1,4 +1,4 @@
-{% extends "sleuthApp/base.html" %} 
+{% extends "base.html" %} 
 
 {% block content %}
 <div class='container'>
@@ -13,6 +13,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="Submit" class="btn btn-primary">
+            <a class="btn btn-danger" href="/sleuthApp/project/{{project_id}}">Cancel</a>
         </form>
     </div>
 </div>

@@ -1,11 +1,12 @@
 """views.py used for managing views within the django app"""
-
-from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView, FormView
+from django.shortcuts import (get_object_or_404,
+                              render,
+                              HttpResponseRedirect)
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView
 from django.urls import reverse_lazy
 import sleuthApp
 from .models import Project, Task, User, Comment
-from .forms import LoginForm, TaskForm
+from .forms import LoginForm, TaskForm, CommentForm
 
 
 class HomeView(TemplateView):
@@ -27,17 +28,16 @@ class ProjectListView(ListView):
     context_object_name = "project_list"
 
 
-class ProjectDetailView(DetailView):
-    """View that allows one project to be seen on the screen"""
-    model = Project
-
-def project_detail_view(request, id):
+def project_view(request, id):
     """shows project detail and tasks"""
     ## need to write code to make context accessible in html
-    project = Project.objects.filter(id=id).all()
-    all_tasks = Task.objects.filter(project_id=id).all()
-    context_list = {'tasks': all_tasks, 'project': project}
-    return render(request, 'sleuthApp/project_view.html', context=context_list)
+    project = Project.objects.filter(id=id)
+    tasks = Task.objects.filter(project_id=id).all()
+    context = {
+        'project':project,
+        'tasks':tasks
+    }
+    return render(request, 'sleuthApp/project_view.html', context)
 
 class ProjectUpdateView(UpdateView):
     """Adds ability to update project information"""
@@ -64,15 +64,66 @@ class LoginFormView(FormView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
-class TaskCreateView(FormView):
-    '''creates a new task to be added to the project'''
-    form_class = TaskForm
-    template_name = 'task_form.html'
-    if form_valid:
-        success_url = reverse_lazy(f'sleuthApp:project_detail/{project_id}')
+def create_task(request, id):
+    task = Task()
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            projects = Project.objects.filter(id=id)
+            task.project_id = projects[0]
+            task.task_subject = form.cleaned_data['task_subject']
+            task.details = form.cleaned_data['details']
+            task.task_status = form.cleaned_data['task_status']
+            task.severity = form.cleaned_data['severity']
+            task.save()
+            return HttpResponseRedirect(f'/sleuthApp/project/{id}')
+    else:
+        form = TaskForm()
+    return render(request, 'sleuthApp/task_form.html', {
+        'form': form,
+        'project_id': id
+    })
 
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        project_id = form.cleaned_data['project_id']
+def update_task(request, project_id, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    form = TaskForm(request.POST or None, instance=task)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(f'/sleuthApp/project/{project_id}')
+    else:
+        form = TaskForm()
+    return render(request, 'sleuthApp/task_form.html', {
+        'form': form,
+        'project_id': project_id,
+        'task_id': task_id
+    })
 
-        return super().form_valid(form)
+def view_comments(request, project_id, task_id):
+        """shows task detail and comments associated to the task"""
+        project = Project.objects.filter(id=project_id)
+        task = Task.objects.filter(id=task_id)
+        comments = Comment.objects.filter(task_id=task[0])
+        context = {
+            'project':project,
+            'task':task,
+            'comments': comments
+        }
+        return render(request, 'sleuthApp/comments_view.html', context)
+
+def add_comment(request, project_id, task_id):
+    comment = Comment()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            task = Task.objects.filter(id=task_id)
+            comment.task_id = task[0]
+            comment.body = form.cleaned_data['body']
+            comment.save()
+            return HttpResponseRedirect(f'/sleuthApp/project/{project_id}/task/{task_id}/comments')
+    else:
+        form = CommentForm()
+    return render(request, 'sleuthApp/comment_form.html', {
+        'form': form,
+        'project_id': project_id,
+        'task_id': task_id
+    })

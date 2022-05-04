@@ -15,6 +15,7 @@ class User(models.Model):
     username = models.CharField(max_length=20)
     email = models.EmailField(max_length=50)
     password = models.CharField(max_length=25, default=None)
+    date_created = models.DateTimeField(auto_now_add=True)
 
 class Task(models.Model):
     """
@@ -34,7 +35,7 @@ class Task(models.Model):
         'Project', default=None, on_delete=models.CASCADE)
     task_subject = models.CharField(max_length=30)
     details = models.TextField(max_length=500)
-    open_date = models.DateTimeField(auto_now_add=True)
+    date_opened = models.DateTimeField(auto_now_add=True)
     # close_date = models.DateTimeField(blank=True)
     task_status = models.CharField(max_length=1, choices=TASK_STATUS)
     severity = models.CharField(max_length=1, choices=SEVERITY)
@@ -49,6 +50,7 @@ class Project(models.Model):
         auto_created=True, primary_key=True, serialize=True)
     title = models.CharField(max_length=50)
     description = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
 
 class Comment(models.Model):
     """
@@ -59,3 +61,4 @@ class Comment(models.Model):
     task_id = models.ForeignKey(
         'Task', default=None, on_delete=models.CASCADE)
     body = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)

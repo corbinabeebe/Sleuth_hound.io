@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sleuthApp.apps.SleuthappConfig',
-    'sleuthApp',
 ]
 
 MIDDLEWARE = [
@@ -130,7 +129,7 @@ STATIC_URL = 'static/'
 #-----------------------------------------------------------------\
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = [
-    BASE_DIR / 'static/sleuthApp',
+    BASE_DIR / 'static/',
 ]
 
 # Default primary key field type
