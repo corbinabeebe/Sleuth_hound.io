@@ -5,7 +5,7 @@
     <br>
     <br>
     <div class = 'row'>
-        <h1>Task Form</h1>
+        <h1>Comment Form</h1>
     </div>
 
     <div class='row'>
@@ -13,8 +13,9 @@
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="Submit" class="btn btn-primary">
-            <a class="btn btn-danger" href="/sleuthApp/project/{{project_id}}">Cancel</a>
+            <a class="btn btn-danger" href="/sleuthApp/project/{{project_id}}/task/{{task_id}}/comments">Cancel</a>
         </form>
+
     </div>
 </div>
 

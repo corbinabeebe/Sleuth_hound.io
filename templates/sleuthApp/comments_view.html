@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <br>
+  <div class="row">
+      <div class="col">
+          <h1>Task: {{ task.0.task_subject | title }}</h1>
+          <br>
+          <h2>Details:</h2> 
+          <p> {{ task.0.details }}</p>
+          <p><h4>Opened</h4> {{task.0.date_opened}}</p>
+      </div>
+      <div class="col">
+        <p><h4>Status</h4> {{task.0.task_status}}</p>
+        <p><h4>Severity</h4> {{task.0.severity}}</p>
+      </div>
+      <div class="col">
+        <a class="btn btn-dark" href="/sleuthApp/project/{{ project.0.id }}">Back to Project </a>
+      </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+      <table id="comment-table" class="table">
+          <thead>
+            <tr>
+              <th class="text-center" scope="col">Comment Id</th>
+              <th class="text-center" scope="col">Body</th>
+              <th class="text-center" scope="col">Date Opened</th>
+              <th class="text-center" scope="col">Update Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for comment in comments %}
+            <tr>
+              <th class="text-center" scope="row">{{ comment.id }}</th>
+              <td class="text-center">{{ comment.body }}</td>
+              <td class="text-center">{{ comment.date_created }}</td>
+              <td class="text-center">
+                  <a class="btn btn-warning" href="/sleuthApp/project/{{ project.0.id }}/task/{{ task.id }}/update_comment/{{comment.id}}/"> </a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <br>
+        <a href="/sleuthApp/project/{{project.0.id}}/task/{{task.0.id}}/add_comment" type="button" class="btn btn-success">Add Comment</a>
+  </div>
+</div>
+{% endblock content %}

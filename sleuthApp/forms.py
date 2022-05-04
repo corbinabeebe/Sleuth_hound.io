@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from sleuthApp.models import Task
+from sleuthApp.models import Task, Comment
 
 class LoginForm(forms.Form):
     """login form"""
@@ -14,4 +14,10 @@ class TaskForm(ModelForm):
         '''Meta task class'''
         model = Task
         fields = ['task_subject', 'details', 'task_status', 'severity']
-        
+
+class CommentForm(ModelForm):
+    """Comment Form"""
+    class Meta:
+        '''Meta class for comments'''
+        model = Comment
+        fields = ['body']

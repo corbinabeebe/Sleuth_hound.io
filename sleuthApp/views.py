@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, CreateView, ListView, UpdateView,
 from django.urls import reverse_lazy
 import sleuthApp
 from .models import Project, Task, User, Comment
-from .forms import LoginForm, TaskForm
+from .forms import LoginForm, TaskForm, CommentForm
 
 
 class HomeView(TemplateView):
@@ -80,7 +80,8 @@ def create_task(request, id):
     else:
         form = TaskForm()
     return render(request, 'sleuthApp/task_form.html', {
-        'form': form
+        'form': form,
+        'project_id': id
     })
 
 def update_task(request, project_id, task_id):
@@ -92,17 +93,37 @@ def update_task(request, project_id, task_id):
     else:
         form = TaskForm()
     return render(request, 'sleuthApp/task_form.html', {
-        'form': form
+        'form': form,
+        'project_id': project_id,
+        'task_id': task_id
     })
 
 def view_comments(request, project_id, task_id):
         """shows task detail and comments associated to the task"""
         project = Project.objects.filter(id=project_id)
-        task = Task.objects.filter(project_id=task_id)
+        task = Task.objects.filter(id=task_id)
         comments = Comment.objects.filter(task_id=task[0])
         context = {
             'project':project,
-            'tasks':task,
-            'comments':comments
+            'task':task,
+            'comments': comments
         }
         return render(request, 'sleuthApp/comments_view.html', context)
+
+def add_comment(request, project_id, task_id):
+    comment = Comment()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            task = Task.objects.filter(id=task_id)
+            comment.task_id = task[0]
+            comment.body = form.cleaned_data['body']
+            comment.save()
+            return HttpResponseRedirect(f'/sleuthApp/project/{project_id}/task/{task_id}/comments')
+    else:
+        form = CommentForm()
+    return render(request, 'sleuthApp/comment_form.html', {
+        'form': form,
+        'project_id': project_id,
+        'task_id': task_id
+    })
