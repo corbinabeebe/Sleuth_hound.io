@@ -2,3 +2,5 @@
 .vs/slnx.sqlite
 .vs/VSWorkspaceState.json
 .vs/Sleuth_hound.io/v15/.suo
+config/__pychache__
+sleuthApp/__pychache__

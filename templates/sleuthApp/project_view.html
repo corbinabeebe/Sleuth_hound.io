@@ -1,4 +1,4 @@
-{% extends "sleuthApp/base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 <div class="container">
@@ -13,24 +13,45 @@
             <h3> {{ project.0.description }}</h3>
         </div>
         <div class="col">
-            <button href='sleuthApp' type="button" class="btn btn-success">Add Task</button>
         </div>
     </div>
     <br>
     <br>
     <div class="row">
-        {% for task in tasks %}
-        <div class="card" style="width: 18rem; margin: .5rem;">
-            <span class="border border-dark"></span>
-            <div class="card-body">
-                <h5 class="card-title">{{ tasks.details }}</h5>
-                <p class="card-text">{{ tasks.status }}</p>
-                {% comment %} <a href="/sleuth/project_detail/{{ project.id }}" class="card-link">Tasks</a>
-                <a href="/sleuth/update_project/{{ project.id }}" class="card-link">Update Details</a> {% endcomment %}
-            </div>
-            </span>
-        </div>
-        {% endfor %}
+        <table id="tasks-table" class="table">
+            <thead>
+              <tr>
+                <th class="text-center" scope="col">#</th>
+                <th class="text-center" scope="col">Subject</th>
+                <th class="text-center" scope="col">Details</th>
+                <th class="text-center" scope="col">Status</th>
+                <th class="text-center" scope="col">Severity</th>
+                <th class="text-center" scope="col">Date Opened</th>
+                <th class="text-center" scope="col">View Comments</th>
+                <th class="text-center" scope="col">Update Task</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+              <tr>
+                <th class="text-center" scope="row">{{ task.id }}</th>
+                <td class="text-center">{{ task.task_subject }}</td>
+                <td class="text-center">{{ task.details }}</td>
+                <td class="text-center">{{ task.task_status }}</td>
+                <td class="text-center">{{ task.severity }}</td>
+                <td class="text-center">{{ task.date_opened }}</td>
+                <td class="text-center">
+                    <a class="btn btn-info" href="/task/{{ task.id }}/comments"> </a>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-warning" href="/sleuthApp/project/{{ project.0.id }}/task/{{ task.id }}/update_task"> </a>
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <br>
+          <a href="/sleuthApp/project/{{project.0.id}}/create_task" type="button" class="btn btn-success">Add Task</a>
     </div>
 </div>
 

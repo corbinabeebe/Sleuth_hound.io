@@ -1,4 +1,4 @@
-{% extends "sleuthApp/base.html" %}
+{% extends "base.html" %}
 
 
 {% block content %}
@@ -19,14 +19,16 @@
           <div class="card-body">
             <h5 class="card-title">{{ project.title }}</h5>
             <p class="card-text">{{project.description }}</p>
-            <a href="/sleuth/project_detail/{{ project.id }}" class="card-link">Tasks</a>
-            <a href="/sleuth/update_project/{{ project.id }}" class="card-link">Update Details</a>
+            <a href="/sleuthApp/project/{{ project.id }}" class="card-link">Tasks</a>
+            <a href="/sleuthApp/project/{{ project.id }}/edit" class="card-link">Update Details</a>
             
           </div>
         </span>
       </div>
     {% endfor %}
   </div>
+  <br>
+  <a type="button" class="btn btn-primary" href="{% url 'sleuthApp:create_project' %}">Create Project</a>
 </div>
 
 {% endblock content %}
