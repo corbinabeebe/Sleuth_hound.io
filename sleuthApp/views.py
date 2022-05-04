@@ -94,3 +94,15 @@ def update_task(request, project_id, task_id):
     return render(request, 'sleuthApp/task_form.html', {
         'form': form
     })
+
+def view_comments(request, project_id, task_id):
+        """shows task detail and comments associated to the task"""
+        project = Project.objects.filter(id=project_id)
+        task = Task.objects.filter(project_id=task_id)
+        comments = Comment.objects.filter(task_id=task[0])
+        context = {
+            'project':project,
+            'tasks':task,
+            'comments':comments
+        }
+        return render(request, 'sleuthApp/comments_view.html', context)

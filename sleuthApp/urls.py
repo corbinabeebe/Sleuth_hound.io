@@ -1,7 +1,7 @@
 """sleuthApp Urls"""
 
 from django.urls import path
-from .views import (HomeView, LoginFormView, ProjectCreatView, ProjectListView,UserCreateView, ProjectUpdateView)
+from .views import (HomeView, LoginFormView, ProjectCreatView, ProjectListView,UserCreateView, ProjectUpdateView, view_comments)
 from . import views
 
 app_name = 'sleuthApp'
@@ -16,5 +16,6 @@ urlpatterns = [
     path('project/<int:id>',views.project_view, name='project'), 
     path('project/<int:pk>/edit', ProjectUpdateView.as_view(), name='update_project'),
     path('project/<int:id>/create_task/', views.create_task, name='create_task'),
-    path('project/<int:project_id>/task/<int:task_id>/update_task', views.update_task, name='update_task')
+    path('project/<int:project_id>/task/<int:task_id>/update_task', views.update_task, name='update_task'),
+    path('project/<int:project_id>/task/<int:task_id>/comments', views.view_comments, name='view_comments')
 ]
