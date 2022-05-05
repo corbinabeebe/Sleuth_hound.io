@@ -85,19 +85,6 @@ class ProjectUpdateView(LoginRequiredMixin,UpdateView):
     success_url = reverse_lazy('sleuthApp:projects')
 
 
-# class LoginFormView(LoginRequiredMixin,FormView):
-#     """FormView to grab user login information"""
-#     form_class = LoginForm
-#     template_name = 'registration/login.html'
-
-#     success_url = reverse_lazy('sleuthApp:projects')
-
-#     # what to do with the form
-#     def form_valid(self, form):
-#         print(form.cleaned_data)
-#         return super().form_valid(form)
-
-
 @login_required
 def create_task(request, id):
     """fucntion based view to create a task"""

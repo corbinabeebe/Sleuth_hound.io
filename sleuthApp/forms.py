@@ -18,6 +18,20 @@ class TaskForm(ModelForm):
         '''Meta task class'''
         model = Task
         fields = ['task_subject', 'details', 'task_status', 'severity']
+    def clean_task_subject(self):
+        '''Ensures subject is formatted correctly'''
+        subject = self.cleaned_data["task_subject"]
+
+        if not subject:
+            return subject
+        if subject.endswith("."):
+            self.add_error("task_subject", "Should not end with a .")
+        if not subject[0].isupper():
+            self.add_error("task_subject", "Should start with an uppercase letter")
+        if "&" in subject:
+            self.add_error("task_subject", "Use 'and' instead of '&'")
+
+        return subject
 
 class CommentForm(ModelForm):
     """Comment Form"""
