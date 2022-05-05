@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+    <br>
+    <br>
+    <div class = 'row'>
+        <h1>Register Form</h1>
+    </div>
+
+    <div class='row'>
+        <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                <medium style="color: black">{{field.help_text}}</medium>
+                {% endif %}
+                {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+                {% endfor %}
+            </p>
+            {% endfor %}
+            <input type="submit" value="Register" class="btn btn-primary">
+            <a class="btn btn-danger" href="/sleuthApp/">Cancel</a>
+        </form>
+    </div>
+</div>
+
+{% endblock content%}

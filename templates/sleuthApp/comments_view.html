@@ -16,6 +16,7 @@
         <p><h4>Severity</h4> {{task.0.severity}}</p>
       </div>
       <div class="col">
+        <a class="btn btn-warning" href="/sleuthApp/project/{{ project.0.id }}/task/{{ task.0.id }}/update_task">Update Task</a>
         <a class="btn btn-dark" href="/sleuthApp/project/{{ project.0.id }}">Back to Project </a>
       </div>
   </div>
@@ -38,7 +39,7 @@
               <td class="text-center">{{ comment.body }}</td>
               <td class="text-center">{{ comment.date_created }}</td>
               <td class="text-center">
-                  <a class="btn btn-warning" href="/sleuthApp/project/{{ project.0.id }}/task/{{ task.id }}/update_comment/{{comment.id}}/"> </a>
+                  <a class="btn btn-warning" href="/sleuthApp/project/{{ project.0.id }}/task/{{ task.0.id }}/update_comment/{{ comment.id }}"> </a>
               </td>
             </tr>
           {% endfor %}

@@ -17,19 +17,18 @@
         <div class="col">
         </div>
     </div>
-
     <br>
-
     <div class = "row">
-
+        <div class="col"></div>
         <div class="col">
+            {% if user.is_authenticated %}
+                <p>SleuthHound.io</p>
+                <p>welcome: {{user.get_username}}</p>
+            {% else %}
+                <p>Your are not logged in!</p>
+            {% endif %}
         </div>
-        <div class="col">
-            <a href="{% url "sleuthApp:login" %}" class="btn btn-dark" role="button" aria-pressed="true" padding=5px>Login</a>
-            <a href="{% url "sleuthApp:register" %}"  class="btn btn-dark" role="button" aria-pressed="true" padding=5px>Register</a>
-        </div>
-        <div class="col">
-        </div>
+        <div class="col"></div>
     </div>
 </div>
 

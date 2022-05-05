@@ -1,22 +1,13 @@
 """
     Contains data models for sleuth_hound.io application
 """
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.urls import reverse
 from django.db import models
 
 # Create your models here.
-class User(models.Model):
-    """
-        User model class that maps objects to users in the user table
-    """
-    id = models.BigAutoField(
-        auto_created=True, primary_key=True, serialize=True)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    username = models.CharField(max_length=20)
-    email = models.EmailField(max_length=50)
-    password = models.CharField(max_length=25, default=None)
-    date_created = models.DateTimeField(auto_now_add=True)
-
 class Task(models.Model):
     """
         Task model class that maps objects to task
@@ -33,7 +24,7 @@ class Task(models.Model):
     id = models.BigAutoField(auto_created=True, primary_key=True, serialize=True)
     project_id = models.ForeignKey(
         'Project', default=None, on_delete=models.CASCADE)
-    task_subject = models.CharField(max_length=30)
+    task_subject = models.CharField(max_length=100)
     details = models.TextField(max_length=500)
     date_opened = models.DateTimeField(auto_now_add=True)
     # close_date = models.DateTimeField(blank=True)
@@ -41,6 +32,10 @@ class Task(models.Model):
     severity = models.CharField(max_length=1, choices=SEVERITY)
     # assigned_user = models.ForeignKey(
     #     'User', default=None, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        """Returns the url for an object of this class"""
+        return reverse("task_detail", kwargs={'id': self.id})
 
 class Project(models.Model):
     """
@@ -51,6 +46,10 @@ class Project(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        """Returns the url for an object of this class"""
+        return reverse("project_detail", kwargs={'id': self.id})
 
 class Comment(models.Model):
     """

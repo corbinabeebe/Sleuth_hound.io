@@ -18,9 +18,21 @@
         <nav class="navbar sticky-top navbar-dark bg-dark">
              <!-- Navbar content -->
              <div class="container-fluid">
-                <a class="navbar-brand" href="/sleuthApp/">Sleuth-hound.io</a>
+                <div class="col">
+                    <a class="navbar-brand" href="/sleuthApp/">Sleuth-hound.io</a>                    
+                </div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col"></div>
+                <div class="col">
+                    <a class="btn btn-light" href="/sleuthApp/projects">Projects</a>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-light" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="btn btn-light" href="sleuthAppp:login">Login</a>
+                {% endif %}
+                </div>
             </div>
-            
         </nav>
         <div class = "container">
             <div class="row">
