@@ -22,8 +22,7 @@
         <div class="col"></div>
         <div class="col">
             {% if user.is_authenticated %}
-                <p>SleuthHound.io</p>
-                <p>welcome: {{user.get_username}}</p>
+                <p>Welcome: {{user.get_username}}</p>
             {% else %}
                 <p>Your are not logged in!</p>
             {% endif %}
