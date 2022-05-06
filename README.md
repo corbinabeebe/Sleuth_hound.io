@@ -109,8 +109,4 @@ python manage.py runserver
 
 ## How to use Sleuth-hound.io
 
-How to and trouble shooting will be found below!
-
-## Tests
-
-Tests and test plan will be found below!
+User manual can be found here: [Sleuth-hound.io User Manual](<https://github.com/corbinabeebe/Sleuth_hound.io/blob/master/Sleuth-hound.io%20UserManual.pdf>)
